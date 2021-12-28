@@ -1,0 +1,34 @@
+.about_container{
+    margin:15px
+}
+.header_container{
+    display: flex;
+    justify-content:center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.about_header{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.about_text{
+    color: rgb(74, 75, 76);
+}
+
+.link_container{
+    display: flex;
+    align-items: center;
+}
+
+.links{
+    margin:0 0 15px 15px;
+   
+}
+
+.dtt_link{
+    color: rgb(6, 123, 194);
+    margin-top:10px;
+}

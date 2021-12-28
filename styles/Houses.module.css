@@ -1,0 +1,241 @@
+.container {
+    padding: 8px;
+}
+
+/* House Header */
+
+.header_container {
+    display: flex;
+    justify-content: center;
+}
+
+.house_header {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/*Add Home */
+.plus {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 15px;
+    left: 85%;
+    background-image: url("../public/images/ic_upload.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+/*Search Input */
+.search_input {
+    width: 100%;
+    padding: 15px 24px;
+    transition: transform 250ms ease-in-out;
+    font-size: 12px;
+    line-height: 18px;
+    color: #000000;
+    background-color: rgb(232, 232, 232);
+    /* background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E"); */
+    /* background-image: url('../public/images/ic_search.png'); */
+    background-repeat: no-repeat;  
+    background-size: 18px 18px;
+    background-position: 2% center;
+    border-radius: 10px;
+    border: 1px solid rgb(232, 232, 232);
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    text-align: center;
+}
+
+.input_icons {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    bottom: 35px;
+    left: 15px;
+}
+
+
+.search_input::placeholder {
+    color: rgb(74, 75, 76);
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.search_input::placeholder:active {
+    display: none;
+}
+
+.search_input:hover,
+.search_input:focus {
+    padding: 14px 0;
+    outline: 0;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #000000;
+    /* background-image: url('../public/images/ic_clear.png');
+    background-position: 98% center; */
+}
+
+.input_container {
+    padding: 12px;
+}
+
+/* Not Found Img*/
+.notfound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+    color: rgb(74, 75, 76);
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.notfound_img_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 15px
+}
+
+.notfound_text_container {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Filter Buttons*/
+.filter_buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.price_btn,
+.price_active,
+.size_active,
+.size_btn {
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffff;
+    width: 95%;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.price_btn:hover {
+    opacity: 90%;
+}
+
+.size_btn:hover {
+    opacity: 90%;
+}
+
+.price_btn {
+    background-color: rgb(235, 84, 64);
+    border-radius: 10px 0 0 10px;
+}
+
+.price_active {
+    background-color: rgb(216, 28, 3);
+    border-radius: 10px 0 0 10px;
+}
+
+.size_btn {
+    background-color: rgb(195, 195, 195);
+    border-radius: 0 10px 10px 0;
+}
+
+.size_active {
+    background-color: rgb(112, 108, 108);
+    border-radius: 0 10px 10px 0;
+}
+
+/*Home Card */
+.card {
+    margin: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+    align-items: center;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.card_header img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    width: 140px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.card_body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    width: 100%;
+    padding-left: 15px;
+    min-height: 120px;
+}
+
+
+.house_name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.edit_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.house_price {
+    font-size: 12px;
+}
+
+.house_location {
+    color: rgb(74, 75, 76);
+}
+
+.icon_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    display: flex;
+    margin: 10px 0;
+    padding-right: 5px;
+}
+
+/* Edit - Delete */
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 30%;
+    opacity: 0
+}
+
+.card_body:hover .icons {
+    opacity: 100%;
+}

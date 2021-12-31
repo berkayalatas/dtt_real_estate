@@ -3,15 +3,97 @@ import styles from "../styles/New_Listing.module.css";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import delete_img from "../public/images/ic_clear_white.png";
+import axios from "axios";
 
 function newListing() {
   const router = useRouter();
-  const [selectGarage, setSelectGarage] = useState("");
+
+  const [streetName, setStreetName] = useState("");
+  const [houseNumber, setHouseNumber] = useState(null);
+  const [numberAddition, setNumberAddition] = useState("");
+  const [zip, setZip] = useState("");
+  const [city, setCity] = useState("");
   const [img, setImg] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [size, setSize] = useState(null);
+  const [hasGarage, setHasGarage] = useState(true);
+  const [bedrooms, setBedrooms] = useState(null);
+  const [bathrooms, setBathrooms] = useState(null);
+  const [constructionYear, setConstructionYear] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleImg = (event) => {
     setImg(URL.createObjectURL(event.target.files[0]));
   };
+
+  const handleGarageChange = (event) => {
+      setHasGarage(event.target.value);
+      console.log(hasGarage);
+  }
+
+
+
+  async function onSubmitForm(e) {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("X-Api-Key", "wrGyPvn6VagYhAqEeFOpuZ1cKdtWUm24");
+    // myHeaders.append("Content-Type", "application/json");
+
+    console.log(streetName, price, city, hasGarage);
+
+    var formdata = new FormData();
+    formdata.append("streetName", streetName);
+    formdata.append("price", price);
+    formdata.append("bedrooms", bedrooms);
+    formdata.append("bathrooms", bathrooms);
+    formdata.append("size", size);
+    formdata.append("houseNumber", houseNumber);
+    formdata.append("numberAddition", numberAddition);
+    formdata.append("zip", zip);
+    formdata.append("city", city);
+    formdata.append("constructionYear", constructionYear);
+    formdata.append("hasGarage", hasGarage);
+    formdata.append("description", description);
+
+    console.log(formdata);
+
+    const newListing = [
+      {
+        price: price,
+        rooms: {
+          bedrooms: bedrooms,
+          bathrooms: bedrooms,
+        },
+        size: 500,
+        description: description,
+        location: {
+          street: streetName,
+          city: city ,
+          zip: zip,
+        },
+        constructionYear: constructionYear,
+        hasGarage: hasGarage,
+      },
+    ];
+
+    let config = {
+      method: "POST",
+      url: "https://api.intern.d-tt.nl/api/houses",
+      headers: myHeaders,
+      body: newListing,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await axios(config);
+      console.log(response);
+      if (response.status == 200) {
+        console.log("success");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className={styles.new_listing_container}>
@@ -27,16 +109,20 @@ function newListing() {
           }}
         ></div>
       </div>
-      <form>
+      <form onSubmit={onSubmitForm}>
         <div className={styles.form_container}>
-          <div className={styles.input_headers}>Street Name*</div>
+          <label className={styles.input_headers}>Street Name*</label>
           <input
             type="text"
             placeholder="Enter the street name"
             className={styles.form_input}
             required
+            name="streetName"
             minLength="3"
             maxLength="25"
+            onChange={(e) => {
+              setStreetName(e.target.value);
+            }}
           />
           <div className={styles.input_side_by_side}>
             <div className={styles.element}>
@@ -47,6 +133,10 @@ function newListing() {
                 placeholder="Enter house number"
                 min={1}
                 required
+                name="houseNumber"
+                onChange={(e) => {
+                  setHouseNumber(e.target.value);
+                }}
               />
             </div>
             <div className={styles.element}>
@@ -57,6 +147,10 @@ function newListing() {
                 placeholder="e.g.A"
                 minLength="1"
                 maxLength="10"
+                name="numberAddition"
+                onChange={(e) => {
+                  setNumberAddition(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -64,9 +158,12 @@ function newListing() {
           <input
             className={styles.form_input}
             placeholder="e.g. 1000 AA"
-            type="number"
-            min={1}
+            type="text"
             required
+            name="zip"
+            onChange={(e) => {
+              setZip(e.target.value);
+            }}
           />
           <div className={styles.input_headers}>City*</div>
           <input
@@ -76,6 +173,10 @@ function newListing() {
             minLength="2"
             maxLength="20"
             required
+            name="city"
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
           />
           <div className={styles.input_headers}>
             Upload Picture (PNG or JPG)*
@@ -87,6 +188,7 @@ function newListing() {
               type="file"
               onChange={handleImg}
               required
+              name="picture"
             />
             <div>
               <img
@@ -116,7 +218,10 @@ function newListing() {
             className={styles.form_input}
             required
             min={3}
-            max={20}
+            name="price"
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
           />
           <div className={styles.input_side_by_side}>
             <div className={styles.element}>
@@ -127,6 +232,10 @@ function newListing() {
                 placeholder="e.g. 60m2"
                 min={1}
                 required
+                name="size"
+                onChange={(e) => {
+                  setSize(e.target.value);
+                }}
               />
             </div>
             <div className={styles.element}>
@@ -134,21 +243,23 @@ function newListing() {
               <select
                 className={styles.form_input}
                 style={{ backgroundColor: "#fff" }}
-                onChange={(e) => {
-                  setSelectGarage(e.target.value);
-                }}
                 required
+                name="hasGarage"
+                onChange={handleGarageChange}
+                onClick={(e)=>{ setHasGarage(hasGarage) }}                
               >
-                <option disabled value="default">
+                <option disabled defaultValue={'Select'}>
                   Select
                 </option>
-                {["Yes", "No"].map((i, j) => {
-                  return (
-                    <option key={j} value={i}>
-                      {i}
-                    </option>
-                  );
-                })}
+
+                <option value={false}>
+                  Yes
+                </option>
+
+                <option value={true}>
+                  No
+                </option>
+                
               </select>
             </div>
           </div>
@@ -161,6 +272,10 @@ function newListing() {
                 placeholder="Enter amount"
                 min={0}
                 required
+                name="bedrooms"
+                onChange={(e) => {
+                  setBedrooms(e.target.value);
+                }}
               />
             </div>
             <div className={styles.element}>
@@ -171,6 +286,10 @@ function newListing() {
                 placeholder="Enter amount"
                 min={0}
                 required
+                name="bathrooms"
+                onChange={(e) => {
+                  setBathrooms(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -182,9 +301,12 @@ function newListing() {
               e.currentTarget.type = "date";
               e.currentTarget.focus();
             }}
-            max={new Date()}
             required
             placeholder="e.g. 1990"
+            name="constructionYear"
+            onChange={(e) => {
+              setConstructionYear(e.target.value);
+            }}
           />
           <div className={styles.input_headers}>Description*</div>
           <textarea
@@ -194,6 +316,10 @@ function newListing() {
             minLength="5"
             maxLength="80"
             required
+            name="description"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
         </div>
         <div className={styles.button_container}>

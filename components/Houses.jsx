@@ -136,7 +136,7 @@ function Houses({ data }) {
                   </div>
                 ) : (
                   <div className={styles.search_icon}>
-                    <Image src={search} />
+                    <Image src={search} alt="search"/>
                   </div>
                 )}
               </div>

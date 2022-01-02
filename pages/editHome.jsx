@@ -5,18 +5,28 @@ import Image from "next/image";
 import delete_img from "../public/images/ic_clear_white.png";
 import axios from "axios";
 
-function newListing() {
+function editHome({ data }) {
   const router = useRouter();
+  /* Get home ID from URL */
+  const { id } = router.query;
+
+  /* Find the home details using the id*/
+  var theHouse = {};
+  data?.filter((house) => {
+    if (house.id == id) {
+      theHouse = house;
+    }
+  });
 
   const [streetName, setStreetName] = useState("");
   const [houseNumber, setHouseNumber] = useState(null);
   const [numberAddition, setNumberAddition] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState(theHouse?.image);
   const [price, setPrice] = useState(null);
   const [size, setSize] = useState(null);
-  const [hasGarage, setHasGarage] = useState(false);
+  const [hasGarage, setHasGarage] = useState(true);
   const [bedrooms, setBedrooms] = useState(null);
   const [bathrooms, setBathrooms] = useState(null);
   const [constructionYear, setConstructionYear] = useState("");
@@ -27,9 +37,9 @@ function newListing() {
   };
 
   const handleGarageChange = (event) => {
-      setHasGarage(event.target.value);
-      // console.log(hasGarage);
-  }
+    setHasGarage(event.target.value);
+    console.log(hasGarage);
+  };
 
   async function onSubmitForm(e) {
     e.preventDefault();
@@ -66,7 +76,7 @@ function newListing() {
         description: description,
         location: {
           street: streetName,
-          city: city ,
+          city: city,
           zip: zip,
         },
         constructionYear: constructionYear,
@@ -97,13 +107,18 @@ function newListing() {
     <div className={styles.new_listing_container}>
       <div>
         <div className={styles.header_container}>
-          <h2 className={styles.new_listing_header}>Create new listing</h2>
+          <h2 className={styles.new_listing_header}>Edit listing</h2>
         </div>
 
         <div
           className={styles.back_btn}
           onClick={() => {
-            router.push("/");
+            router.push({
+              pathname: "/housePage",
+              query: {
+                id: id,
+              },
+            });
           }}
         ></div>
       </div>
@@ -115,6 +130,9 @@ function newListing() {
             placeholder="Enter the street name"
             className={styles.form_input}
             required
+            defaultValue={
+              theHouse.location["street"] ? theHouse.location["street"] : null
+            }
             name="streetName"
             minLength="3"
             maxLength="25"
@@ -132,6 +150,11 @@ function newListing() {
                 min={1}
                 required
                 name="houseNumber"
+                defaultValue={
+                  theHouse.location["street"]
+                    ? theHouse.location["street"].match(/\d/g).join("")
+                    : null
+                }
                 onChange={(e) => {
                   setHouseNumber(e.target.value);
                 }}
@@ -159,6 +182,9 @@ function newListing() {
             type="text"
             required
             name="zip"
+            defaultValue={
+              theHouse.location["zip"] ? theHouse.location["zip"] : null
+            }
             onChange={(e) => {
               setZip(e.target.value);
             }}
@@ -171,6 +197,9 @@ function newListing() {
             minLength="2"
             maxLength="20"
             required
+            defaultValue={
+              theHouse.location["city"] ? theHouse.location["city"] : null
+            }
             name="city"
             onChange={(e) => {
               setCity(e.target.value);
@@ -216,6 +245,7 @@ function newListing() {
             className={styles.form_input}
             required
             min={3}
+            defaultValue={theHouse.price ? theHouse.price : null}
             name="price"
             onChange={(e) => {
               setPrice(e.target.value);
@@ -230,6 +260,7 @@ function newListing() {
                 placeholder="e.g. 60m2"
                 min={1}
                 required
+                defaultValue={theHouse.size}
                 name="size"
                 onChange={(e) => {
                   setSize(e.target.value);
@@ -244,20 +275,17 @@ function newListing() {
                 required
                 name="hasGarage"
                 onChange={handleGarageChange}
-                onClick={(e)=>{ setHasGarage(hasGarage) }}                
+                defaultValue={theHouse.hasGarage ? theHouse.hasGarage : null}
               >
-                <option disabled defaultValue={'Select'}>
-                  Select
+                <option disabled>Select</option>
+
+                <option value={theHouse.hasGarage}>
+                  {theHouse.hasGarage === true ? "Yes" : "No"}
                 </option>
 
-                <option value={false}>
-                  Yes
+                <option value={!theHouse.hasGarage}>
+                  {theHouse.hasGarage === false ? "Yes" : "No"}
                 </option>
-
-                <option value={true}>
-                  No
-                </option>
-                
               </select>
             </div>
           </div>
@@ -270,6 +298,9 @@ function newListing() {
                 placeholder="Enter amount"
                 min={0}
                 required
+                defaultValue={
+                  theHouse.rooms["bedrooms"] ? theHouse.rooms["bedrooms"] : null
+                }
                 name="bedrooms"
                 onChange={(e) => {
                   setBedrooms(e.target.value);
@@ -284,6 +315,11 @@ function newListing() {
                 placeholder="Enter amount"
                 min={0}
                 required
+                defaultValue={
+                  theHouse.rooms["bathrooms"]
+                    ? theHouse.rooms["bathrooms"]
+                    : null
+                }
                 name="bathrooms"
                 onChange={(e) => {
                   setBathrooms(e.target.value);
@@ -302,6 +338,9 @@ function newListing() {
             required
             placeholder="e.g. 1990"
             name="constructionYear"
+            defaultValue={
+              theHouse.constructionYear ? theHouse.constructionYear : null
+            }
             onChange={(e) => {
               setConstructionYear(e.target.value);
             }}
@@ -314,6 +353,7 @@ function newListing() {
             minLength="5"
             maxLength="80"
             required
+            defaultValue={theHouse.description ? theHouse.description : null}
             name="description"
             onChange={(e) => {
               setDescription(e.target.value);
@@ -322,7 +362,7 @@ function newListing() {
         </div>
         <div className={styles.button_container}>
           <button type="submit" className={styles.submit_button}>
-            POST
+            SAVE
           </button>
         </div>
       </form>
@@ -330,4 +370,28 @@ function newListing() {
   );
 }
 
-export default newListing;
+export default editHome;
+
+export async function getServerSideProps() {
+  var myHeaders = new Headers();
+  myHeaders.append("X-Api-Key", "wrGyPvn6VagYhAqEeFOpuZ1cKdtWUm24");
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const data = await fetch(
+    "https://api.intern.d-tt.nl/api/houses",
+    requestOptions
+  )
+    .then((response) => response.json())
+    .catch((error) => console.log("error", error));
+
+  return {
+    props: {
+      data,
+    },
+  };
+}

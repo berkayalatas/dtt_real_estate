@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import styles from "../styles/Houses.module.css";
@@ -11,6 +11,9 @@ import clean from "../public/images/ic_clear.png";
 import search from "../public/images/ic_search.png";
 import notfound from "../public/images/img_empty_houses.png";
 import Mobile_Nav from "./MobileNav";
+import DeleteModal from "../components/DeleteModal";
+import DesktopNav from "../components/DesktopNav";
+import plus from "../public/images/ic_plus_white.png";
 
 function Houses({ data }) {
   const router = useRouter();
@@ -18,13 +21,17 @@ function Houses({ data }) {
   const [searchInput, setSearchInput] = useState("");
   const [activePriceBtn, setActivePriceBtn] = useState(false);
   const [activeSizeBtn, setActiveSizeBtn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const resetSearchInput = () => {
     setSearchInput("");
   };
 
   console.log(data);
-  const [sortedArr, setSortedArr] = useState(data);
+
+  /* Copy original data */
+  var dataArr = [...data];
+  const [sortedArr, setSortedArr] = useState(dataArr);
 
   /* /* Filtering according to Search Input */
   const filterBySearch = sortedArr.filter((value) => {
@@ -71,12 +78,25 @@ function Houses({ data }) {
 
   return (
     <div>
+      <DesktopNav />
+
       <div className={styles.container}>
         <div>
           <div className={styles.header_container}>
             <h2 className={styles.house_header}>Houses</h2>
+            <button
+              className={styles.new_listing_btn}
+              onClick={() => {
+                router.push("/newListing");
+              }}
+            >
+              {" "}
+              <span className={styles.img_span}>
+                <Image src={plus} alt="" />
+              </span>
+              CREATE NEW
+            </button>
           </div>
-
           <div
             className={styles.plus}
             onClick={() => {
@@ -84,7 +104,7 @@ function Houses({ data }) {
             }}
           ></div>
         </div>
-        <div>
+        <div className={styles.input_and_filters}>
           <div className={styles.input_container}>
             <div>
               <input
@@ -95,6 +115,8 @@ function Houses({ data }) {
                 value={searchInput}
                 onChange={(event) => {
                   setSearchInput(event.target.value);
+                  setActivePriceBtn(false);
+                  setActiveSizeBtn(false);
                 }}
               />
 
@@ -106,6 +128,8 @@ function Houses({ data }) {
                       onClick={() => {
                         resetSearchInput();
                         setSortedArr(data);
+                        setActivePriceBtn(false);
+                        setActiveSizeBtn(false);
                       }}
                       alt="clean Input"
                     />
@@ -153,8 +177,9 @@ function Houses({ data }) {
             filterBySearch.map((house, key) => (
               <div key={key}>
                 <div className={styles.card}>
-                  <div className={styles.card_header}
-                    onClick={()=>{
+                  <div
+                    className={styles.card_header}
+                    onClick={() => {
                       router.push({
                         pathname: "/housePage",
                         query: {
@@ -172,30 +197,53 @@ function Houses({ data }) {
                           {house.location["street"]}
                         </div>
                         <div className={styles.icons}>
-                          <div className={styles.edit}>
+                          <div
+                            className={styles.edit}
+                            onClick={() => {
+                              router.push({
+                                pathname: "/editHome",
+                                query: {
+                                  id: house.id,
+                                },
+                              });
+                            }}
+                          >
                             <Image src={edit} alt="edit" />
                           </div>
-                          <div className={styles.delete}>
+                          <div
+                            className={styles.delete}
+                            onClick={() => {
+                              setIsOpen(true);
+                            }}
+                          >
                             <Image src={delete_icon} alt="delete" />
                           </div>
                         </div>
                       </div>
                       <p className={styles.house_price}>€ {house.price}</p>
                       <p className={styles.house_location}>
-                        {house.location["city"]}
+                        {house.location["city"]} {house.location["zip"]}
                       </p>
                     </div>
 
                     <div className={styles.icon_container}>
                       <div className={styles.icon}>
-                        <Image src={bed} width={18} height={18} alt="bed" /> 1
+                        <span className={styles.small_info}>
+                          <Image src={bed} width={18} height={18} alt="bed" />
+                        </span>
+                        <span>{house.rooms["bedrooms"]}</span>
                       </div>
                       <div className={styles.icon}>
-                        <Image src={bath} width={18} height={18} alt="bath" />1
+                        <span className={styles.small_info}>
+                          <Image src={bath} width={18} height={18} alt="bath" />
+                        </span>
+                        <span>{house.rooms["bathrooms"]}</span>
                       </div>
                       <div className={styles.icon}>
-                        <Image src={size} width={18} height={18} alt="size" />
-                        <div> {house.size} m2</div>
+                        <span className={styles.small_info}>
+                          <Image src={size} width={18} height={18} alt="size" />
+                        </span>
+                        <span> {house.size} m2</span>
                       </div>
                     </div>
                   </div>
@@ -217,7 +265,10 @@ function Houses({ data }) {
           )}
         </div>
       </div>
-      <Mobile_Nav />
+      {isOpen && <DeleteModal setIsOpen={setIsOpen} />}
+      <div className={styles.mobile_nav}>
+        <Mobile_Nav />
+      </div>
     </div>
   );
 }

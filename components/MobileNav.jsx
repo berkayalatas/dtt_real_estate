@@ -13,7 +13,6 @@ function MobileNav() {
   const router = useRouter();
 
   function displayHomePage() {
- 
     setActiveHomeBtn(true);
     setActiveInfoBtn(false);
   }
@@ -28,22 +27,21 @@ function MobileNav() {
       <div className={styles.navbar_container}>
         <div
           className={styles.navbar_element}
-          onMouseEnter={() => {
-            displayHomePage();
+          onClick={(e) => {
+            router.push("/");
           }}
-          onClick={(e)=>{router.push('/')}}
         >
-          <Image src={activeHomeBtn ? nav_home_active : nav_home} />
+          <Image src={router.pathname == "/" ? nav_home_active : nav_home} />
         </div>
         <div
           className={styles.navbar_element}
-          onMouseEnter={() => {
-            displayInfoPage();
+          onClick={() => {
+            router.push("/about");
           }}
-   
-          onClick={()=>{router.push('/about')}}
         >
-          <Image src={activeInfoBtn ? nav_info_active : nav_info} />
+          <Image
+            src={router.pathname == "/about" ? nav_info_active : nav_info}
+          />
         </div>
       </div>
     </div>

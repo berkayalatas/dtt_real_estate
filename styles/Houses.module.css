@@ -3,6 +3,11 @@
     margin-bottom: 45px;
 }
 
+/* desktop nav */
+.desktop_nav {
+    display: none;
+}
+
 /* House Header */
 
 .header_container {
@@ -26,6 +31,10 @@
     background-image: url("../public/images/ic_upload.png");
     background-repeat: no-repeat;
     cursor: pointer;
+}
+
+.new_listing_btn {
+    display: none
 }
 
 /*Search Input */
@@ -61,8 +70,10 @@
 
 .search_input::placeholder {
     color: rgb(74, 75, 76);
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     text-align: center;
+    font-family: 'open sans', sans-serif;
+    font-weight: 600;
 }
 
 .search_input::placeholder:active {
@@ -100,7 +111,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     padding: 15px
 }
 
@@ -146,7 +156,7 @@
 }
 
 .price_active {
-    background-color: rgb(216, 28, 3);
+    background-color: rgb(223, 52, 30);
     border-radius: 10px 0 0 10px;
 }
 
@@ -215,12 +225,24 @@
     justify-content: space-between;
 }
 
+.edit:hover {
+    cursor: pointer;
+}
+
+.delete:hover {
+    cursor: pointer;
+}
+
 .house_price {
     font-size: 12px;
 }
 
 .house_location {
     color: rgb(74, 75, 76);
+}
+
+.small_info {
+    padding-right: 5px;
 }
 
 .icon_container {
@@ -250,7 +272,7 @@
 
 /* Bottom Navbar */
 
-.navbar_container{
+.navbar_container {
     display: flex;
     justify-content: space-around;
     background-color: rgb(255, 255, 255);
@@ -263,11 +285,187 @@
 }
 
 .navbar_element {
-    padding:15px 25px;
-    margin:5px;
+    padding: 15px 25px;
+    margin: 5px;
 }
 
 .navbar_element:hover {
     background-color: rgb(252, 249, 249);
     border-radius: 20px;
+}
+
+@media screen and (min-width: 1025px) {
+    .container {
+        margin: 5px 120px;
+
+    }
+
+    .desktop_nav {
+        display: block;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+        width: 15%;
+        margin: 20px 40px;
+    }
+
+    .nav_container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .nav_element_active {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        margin: 30px 20px;
+        cursor: pointer;
+    }
+
+    .nav_element_pasive {
+        font-size: 18px;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        margin: 30px 20px;
+        color: rgb(195, 195, 195);
+        cursor: pointer;
+    }
+
+    .mobile_nav {
+        display: none;
+    }
+
+    .plus {
+        display: none;
+    }
+
+    .house_header {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .header_container {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 10px;
+    }
+
+    .new_listing_btn {
+        display: block;
+        margin: 10px;
+        background-color: rgb(235, 84, 64);
+        border-radius: 10px;
+        color: #ffff;
+        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        padding: 0 5px;
+        width: 180px;
+        height: 50px;
+        outline: none;
+        border: none;
+    }
+
+    .img_span {
+        padding-right: 20px;
+        position: relative;
+        top: 2px;
+    }
+
+    .input_and_filters {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter_buttons {
+        width: 25%;
+    }
+
+    .input_container {
+        padding: 0;
+        margin-top: 25px;
+    }
+
+    .search_input {
+        width: 100%;
+        padding: 15px 120px;
+        font-size: 16px;
+    }
+
+    .search_input:hover,
+    .search_input:focus {
+        padding: 15px 120px;
+        outline: 0;
+        border-radius: 10px 10px 0 0;
+        border-bottom: 1px solid #000000;
+    }
+
+    .price_btn,
+    .price_active,
+    .size_active,
+    .size_btn {
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .card {
+        margin: 5px;
+        font-family: 'Open Sans', sans-serif;
+        padding: 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .card_header img {
+        width: 180px;
+        height: 190px;
+    }
+
+    .house_name {
+        font-size: 18px;
+    }
+
+    .house_price {
+        font-size: 16px;
+        color: rgb(74, 75, 76);
+        font-weight: 700;
+    }
+
+    .icon_container {
+        justify-content: flex-start;
+    }
+
+    /* small icons */
+    .icon {
+        margin: 15px 0;
+        padding-right: 35px;
+        font-weight: 500;
+    }
+
+    /*Edit Delete */
+    .icons {
+        width: 10%;
+    }
+
+    /* Not Found Img*/
+    .notfound_text_container {
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .notfound_img_container {
+        width: 350px;
+    }
+
+    .num_of_result {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 10px;
+    }
 }

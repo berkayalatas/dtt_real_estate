@@ -14,6 +14,8 @@ import bed_icon from "../public/images/ic_bed.png";
 import bath_icon from "../public/images/ic_bath.png";
 import garage_icon from "../public/images/ic_garage.png";
 import MobileNav from "../components/MobileNav";
+import DeleteModal from "../components/DeleteModal";
+import module_style from "../styles/Modal.module.css";
 
 function housePage({ data }) {
   const router = useRouter();
@@ -29,6 +31,7 @@ function housePage({ data }) {
   });
 
   console.log(data);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
@@ -46,14 +49,25 @@ function housePage({ data }) {
           <Image src={back_btn} />
         </div>
         <div className={styles.edit_container}>
-          <span className={styles.icons_right}>
+          <span
+            className={styles.icons_right}
+            onClick={() => {
+              router.push({
+                pathname: "/editHome",
+                query: {
+                  id: id,
+                },
+              });
+            }}
+          >
             <Image src={edit_btn} />
           </span>
           <span className={styles.icons_right}>
-            <Image src={delete_btn} />
+            <Image src={delete_btn} onClick={() => setIsOpen(true)} />
           </span>
         </div>
       </div>
+
       <div className={styles.card_container}>
         <div className={styles.card}>
           <div>
@@ -136,54 +150,69 @@ function housePage({ data }) {
           <h3 className={styles.recommend_header}>Recommended for you</h3>
         </div>
         {/* {  Recommended Houses } */}
-        {data?.filter((house,idx) => idx < 3).map((house, key) => (
-          <div key={key}>
-            <div className={style.card}>
-              <div
-                className={style.card_header}
-                onClick={() => {
-                  router.push({
-                    pathname: "/housePage",
-                    query: {
-                      id: house.id,
-                    },
-                  });
-                }}
-              >
-                <img src={house.image} alt="home" />
-              </div>
-              <div className={style.card_body}>
-                <div>
-                  <div className={style.edit_container}>
-                    <div className={style.house_name}>
-                      {house.location["street"]}
-                    </div>
-                  </div>
-                  <p className={style.house_price}>€ {house.price}</p>
-                  <p className={style.house_location}>
-                    {house.location["city"]}
-                  </p>
+        {data
+          ?.filter((house, idx) => idx < 3)
+          .map((house, key) => (
+            <div key={key}>
+              <div className={style.card}>
+                <div
+                  className={style.card_header}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/housePage",
+                      query: {
+                        id: house.id,
+                      },
+                    });
+                  }}
+                >
+                  <img src={house.image} alt="home" />
                 </div>
+                <div className={style.card_body}>
+                  <div>
+                    <div className={style.edit_container}>
+                      <div className={style.house_name}>
+                        {house.location["street"]}
+                      </div>
+                    </div>
+                    <p className={style.house_price}>€ {house.price}</p>
+                    <p className={style.house_location}>
+                      {house.location["city"]}
+                    </p>
+                  </div>
 
-                <div className={style.icon_container}>
-                  <div className={style.icon}>
-                    <Image src={bed_icon} width={18} height={18} alt="bed" /> 1
-                  </div>
-                  <div className={style.icon}>
-                    <Image src={bath_icon} width={18} height={18} alt="bath" />1
-                  </div>
-                  <div className={style.icon}>
-                    <Image src={size_icon} width={18} height={18} alt="size" />
-                    <div> {house.size} m2</div>
+                  <div className={style.icon_container}>
+                    <div className={style.icon}>
+                      <Image src={bed_icon} width={18} height={18} alt="bed" />{" "}
+                      1
+                    </div>
+                    <div className={style.icon}>
+                      <Image
+                        src={bath_icon}
+                        width={18}
+                        height={18}
+                        alt="bath"
+                      />
+                      1
+                    </div>
+                    <div className={style.icon}>
+                      <Image
+                        src={size_icon}
+                        width={18}
+                        height={18}
+                        alt="size"
+                      />
+                      <div> {house.size} m2</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       <MobileNav />
+      {isOpen && <DeleteModal setIsOpen={setIsOpen} />}
     </div>
   );
 }

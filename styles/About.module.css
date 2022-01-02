@@ -1,34 +1,54 @@
-.about_container{
-    margin:15px
+.about_container {
+    margin: 15px
 }
-.header_container{
+
+.header_container {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: bolder;
 }
 
-.about_header{
+.about_header {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
 }
 
-.about_text{
+.about_text {
     color: rgb(74, 75, 76);
 }
 
-.link_container{
+.link_container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
-.links{
-    margin:0 0 15px 15px;
-   
+.links {
+    margin-left: 15px;
 }
 
-.dtt_link{
+.dtt_link {
     color: rgb(6, 123, 194);
-    margin-top:10px;
+}
+
+@media screen and (min-width: 1025px) {
+
+    .mobile_nav,
+    .header_container {
+        display: none;
+    }
+
+    .about_container {
+        margin: 5px 120px;
+        font-size: 18px;
+    }
+
+    .about_header {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 22px;
+        margin-top: 30px;
+    }
+
 }

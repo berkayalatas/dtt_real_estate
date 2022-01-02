@@ -1,13 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/About.module.css";
 import dtt from "../public/images/img_logo_dtt.png";
 import MobileNav from "../components/MobileNav";
+import DesktopNav from "../components/DesktopNav";
 
 function about() {
- 
   return (
     <div>
+      <DesktopNav />
+
       <div className={styles.about_container}>
         <div className={styles.header_container}>
           <h2>About</h2>
@@ -37,15 +40,17 @@ function about() {
               <Image src={dtt} alt="DTT IMG" />
             </div>
             <div className={styles.links}>
-              <p>By DTT</p>
-              <a className={styles.dtt_link} href="https://www.d-tt.nl">
-                www.d-tt.nl
-              </a>
+              <div>By DTT</div>
+              <div className={styles.dtt_link}>
+                <Link href="https://www.d-tt.nl">www.d-tt.nl</Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <MobileNav />
+      <div className={styles.mobile_nav}>
+        <MobileNav />
+      </div>
     </div>
   );
 }

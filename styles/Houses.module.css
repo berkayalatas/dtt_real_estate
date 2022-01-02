@@ -369,11 +369,17 @@
         border: none;
     }
 
+    .new_listing_btn:hover {
+        opacity: 85%;
+    }
+
     .img_span {
         padding-right: 20px;
         position: relative;
         top: 2px;
     }
+
+
 
     .input_and_filters {
         display: flex;

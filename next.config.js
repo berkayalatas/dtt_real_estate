@@ -3,4 +3,7 @@ module.exports = {
   images: {
     domains: ["localhost", 'api.intern.d-tt.nl',],
   },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
 }

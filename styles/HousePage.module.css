@@ -6,7 +6,7 @@
     width: 100%;
     padding: 15px;
     z-index: 522;
-    position: absolute;
+    position: fixed;
     top: 10px;
     display: flex;
     justify-content: space-between;
@@ -79,6 +79,10 @@
     height: 40px;
 }
 
+.edit_and_delete {
+    display: none;
+}
+
 .price,
 .bed,
 .zip {
@@ -117,4 +121,82 @@
     color: rgb(0, 0, 0);
     text-align: left;
     margin-left: 5px;
+}
+
+@media screen and (min-width: 1025px) {
+    .container {
+        margin: 5px 120px;
+        display: flex;
+
+    }
+
+    .mobile_nav_container {
+        display: none
+    }
+
+    .house_img {
+        width: 500px;
+    }
+
+    .img_container {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .top_icons {
+        display: none;
+    }
+
+    .header_and_icons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .edit_and_delete {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        width: 15%;
+    }
+
+    .edit_desktop:hover,
+    .delete_desktop:hover {
+        opacity: 80%;
+    }
+
+    .edit_container {
+        display: none;
+    }
+
+
+    .card_container {
+        justify-content: center;
+        position: relative;
+        bottom: 0px;
+    }
+
+    .card {
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        padding: 10px;
+        color: rgb(74, 75, 76);
+        font-size: 16px;
+    }
+
+    .card_header {
+        font-size: 18px;
+    }
+
+    .description {
+        font-size: 16px;
+        line-height: 1.6;
+        padding: 5px;
+    }
+
+    .recommend_header {
+        font-size: 18px;
+        text-align: left;
+        margin-left: 5px;
+    }
 }

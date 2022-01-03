@@ -4,6 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import delete_img from "../public/images/ic_clear_white.png";
 import axios from "axios";
+import back from "../public/images/ic_back_grey.png";
 
 function editHome({ data }) {
   const router = useRouter();
@@ -105,12 +106,8 @@ function editHome({ data }) {
 
   return (
     <div className={styles.new_listing_container}>
-      <div>
-        <div className={styles.header_container}>
-          <h2 className={styles.new_listing_header}>Edit listing</h2>
-        </div>
-
-        <div
+      <div className={styles.go_back_container}>
+        <span
           className={styles.back_btn}
           onClick={() => {
             router.push({
@@ -120,252 +117,263 @@ function editHome({ data }) {
               },
             });
           }}
-        ></div>
+        >
+          <Image src={back} alt="back" />
+        </span>
+
+        <p className={styles.overview_text}>Back to overview</p>
       </div>
-      <form onSubmit={onSubmitForm}>
-        <div className={styles.form_container}>
-          <label className={styles.input_headers}>Street Name*</label>
-          <input
-            type="text"
-            placeholder="Enter the street name"
-            className={styles.form_input}
-            required
-            defaultValue={
-              theHouse.location["street"] ? theHouse.location["street"] : null
-            }
-            name="streetName"
-            minLength="3"
-            maxLength="25"
-            onChange={(e) => {
-              setStreetName(e.target.value);
-            }}
-          />
-          <div className={styles.input_side_by_side}>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>House Number*</div>
-              <input
-                className={styles.form_input}
-                type="number"
-                placeholder="Enter house number"
-                min={1}
-                required
-                name="houseNumber"
-                defaultValue={
-                  theHouse.location["street"]
-                    ? theHouse.location["street"].match(/\d/g).join("")
-                    : null
-                }
-                onChange={(e) => {
-                  setHouseNumber(e.target.value);
-                }}
-              />
-            </div>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>Addition(option)</div>
-              <input
-                className={styles.form_input}
-                type="text"
-                placeholder="e.g.A"
-                minLength="1"
-                maxLength="10"
-                name="numberAddition"
-                onChange={(e) => {
-                  setNumberAddition(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <div className={styles.input_headers}>Postal Code*</div>
-          <input
-            className={styles.form_input}
-            placeholder="e.g. 1000 AA"
-            type="text"
-            required
-            name="zip"
-            defaultValue={
-              theHouse.location["zip"] ? theHouse.location["zip"] : null
-            }
-            onChange={(e) => {
-              setZip(e.target.value);
-            }}
-          />
-          <div className={styles.input_headers}>City*</div>
-          <input
-            className={styles.form_input}
-            type="text"
-            placeholder="Utrecht"
-            minLength="2"
-            maxLength="20"
-            required
-            defaultValue={
-              theHouse.location["city"] ? theHouse.location["city"] : null
-            }
-            name="city"
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-          />
-          <div className={styles.input_headers}>
-            Upload Picture (PNG or JPG)*
-          </div>
-          <div className={styles.img_area}>
-            <div className={styles.plus}></div>
+      <div className={styles.header_container}>
+        <h2 className={styles.new_listing_header}>Edit listing</h2>
+      </div>
+      <div className={styles.form_container}>
+        <form onSubmit={onSubmitForm}>
+          <div className={styles.form}>
+            <label className={styles.input_headers}>Street Name*</label>
             <input
-              className={styles.upload_img_input}
-              type="file"
-              onChange={handleImg}
+              type="text"
+              placeholder="Enter the street name"
+              className={styles.form_input}
               required
-              name="picture"
+              defaultValue={
+                theHouse.location["street"] ? theHouse.location["street"] : null
+              }
+              name="streetName"
+              minLength="3"
+              maxLength="25"
+              onChange={(e) => {
+                setStreetName(e.target.value);
+              }}
             />
-            <div>
-              <img
-                src={img}
-                alt=""
-                className={
-                  img != null ? styles.uploaded_img : styles.not_uploaded
-                }
-              />
+            <div className={styles.input_side_by_side}>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>House Number*</label>
+                <input
+                  className={styles.form_input}
+                  type="number"
+                  placeholder="Enter house number"
+                  min={1}
+                  required
+                  name="houseNumber"
+                  defaultValue={
+                    theHouse.location["street"]
+                      ? theHouse.location["street"].match(/\d/g).join("")
+                      : null
+                  }
+                  onChange={(e) => {
+                    setHouseNumber(e.target.value);
+                  }}
+                />
+              </div>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>Addition(option)</label>
+                <input
+                  className={styles.form_input}
+                  type="text"
+                  placeholder="e.g.A"
+                  minLength="1"
+                  maxLength="10"
+                  name="numberAddition"
+                  onChange={(e) => {
+                    setNumberAddition(e.target.value);
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          <div
-            className={
-              img === null ? styles.delete_img_before : styles.delete_img
-            }
-            onClick={() => {
-              setImg(null);
-            }}
-          >
-            <Image src={delete_img} />
-          </div>
-
-          <div className={styles.input_headers}>Price*</div>
-          <input
-            type="number"
-            placeholder="e.g €150.000"
-            className={styles.form_input}
-            required
-            min={3}
-            defaultValue={theHouse.price ? theHouse.price : null}
-            name="price"
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
-          <div className={styles.input_side_by_side}>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>Size*</div>
+            <label className={styles.input_headers}>Postal Code*</label>
+            <input
+              className={styles.form_input}
+              placeholder="e.g. 1000 AA"
+              type="text"
+              required
+              name="zip"
+              defaultValue={
+                theHouse.location["zip"] ? theHouse.location["zip"] : null
+              }
+              onChange={(e) => {
+                setZip(e.target.value);
+              }}
+            />
+            <label className={styles.input_headers}>City*</label>
+            <input
+              className={styles.form_input}
+              type="text"
+              placeholder="Utrecht"
+              minLength="2"
+              maxLength="20"
+              required
+              defaultValue={
+                theHouse.location["city"] ? theHouse.location["city"] : null
+              }
+              name="city"
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            />
+            <div className={styles.input_headers}>
+              Upload Picture (PNG or JPG)*
+            </div>
+            <div className={styles.img_area}>
+              <div className={styles.plus}></div>
               <input
-                className={styles.form_input}
-                type="number"
-                placeholder="e.g. 60m2"
-                min={1}
+                className={styles.upload_img_input}
+                type="file"
+                onChange={handleImg}
                 required
-                defaultValue={theHouse.size}
-                name="size"
-                onChange={(e) => {
-                  setSize(e.target.value);
-                }}
+                name="picture"
               />
+              <div>
+                <img
+                  src={img}
+                  alt=""
+                  className={
+                    img != null ? styles.uploaded_img : styles.not_uploaded
+                  }
+                />
+              </div>
             </div>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>Garage*</div>
-              <select
-                className={styles.form_input}
-                style={{ backgroundColor: "#fff" }}
-                required
-                name="hasGarage"
-                onChange={handleGarageChange}
-                defaultValue={theHouse.hasGarage ? theHouse.hasGarage : null}
-              >
-                <option disabled>Select</option>
+            <div
+              className={
+                img === null ? styles.delete_img_before : styles.delete_img
+              }
+              onClick={() => {
+                setImg(null);
+              }}
+            >
+              <Image src={delete_img} />
+            </div>
 
-                <option value={theHouse.hasGarage}>
-                  {theHouse.hasGarage === true ? "Yes" : "No"}
-                </option>
+            <label className={styles.input_headers}>Price*</label>
+            <input
+              type="number"
+              placeholder="e.g €150.000"
+              className={styles.form_input}
+              required
+              min={3}
+              defaultValue={theHouse.price ? theHouse.price : null}
+              name="price"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
+            <div className={styles.input_side_by_side}>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>Size*</label>
+                <input
+                  className={styles.form_input}
+                  type="number"
+                  placeholder="e.g. 60m2"
+                  min={1}
+                  required
+                  defaultValue={theHouse.size}
+                  name="size"
+                  onChange={(e) => {
+                    setSize(e.target.value);
+                  }}
+                />
+              </div>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>Garage*</label>
+                <select
+                  className={styles.form_input}
+                  style={{ backgroundColor: "#fff" }}
+                  required
+                  name="hasGarage"
+                  onChange={handleGarageChange}
+                  defaultValue={theHouse.hasGarage ? theHouse.hasGarage : null}
+                >
+                  <option disabled>Select</option>
 
-                <option value={!theHouse.hasGarage}>
-                  {theHouse.hasGarage === false ? "Yes" : "No"}
-                </option>
-              </select>
+                  <option value={theHouse.hasGarage}>
+                    {theHouse.hasGarage === true ? "Yes" : "No"}
+                  </option>
+
+                  <option value={!theHouse.hasGarage}>
+                    {theHouse.hasGarage === false ? "Yes" : "No"}
+                  </option>
+                </select>
+              </div>
             </div>
+            <div className={styles.input_side_by_side}>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>Bedrooms*</label>
+                <input
+                  className={styles.form_input}
+                  type="number"
+                  placeholder="Enter amount"
+                  min={0}
+                  required
+                  defaultValue={
+                    theHouse.rooms["bedrooms"]
+                      ? theHouse.rooms["bedrooms"]
+                      : null
+                  }
+                  name="bedrooms"
+                  onChange={(e) => {
+                    setBedrooms(e.target.value);
+                  }}
+                />
+              </div>
+              <div className={styles.element}>
+                <label className={styles.input_headers}>Bathrooms*</label>
+                <input
+                  className={styles.form_input}
+                  type="number"
+                  placeholder="Enter amount"
+                  min={0}
+                  required
+                  defaultValue={
+                    theHouse.rooms["bathrooms"]
+                      ? theHouse.rooms["bathrooms"]
+                      : null
+                  }
+                  name="bathrooms"
+                  onChange={(e) => {
+                    setBathrooms(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <label className={styles.input_headers}>Construction Date*</label>
+            <input
+              type="text"
+              className={styles.form_input}
+              onFocus={(e) => {
+                e.currentTarget.type = "date";
+                e.currentTarget.focus();
+              }}
+              required
+              placeholder="e.g. 1990"
+              name="constructionYear"
+              defaultValue={
+                theHouse.constructionYear ? theHouse.constructionYear : null
+              }
+              onChange={(e) => {
+                setConstructionYear(e.target.value);
+              }}
+            />
+            <label className={styles.input_headers}>Description*</label>
+            <textarea
+              className={styles.form_input}
+              rows="3"
+              placeholder="Enter Description"
+              minLength="5"
+              maxLength="80"
+              required
+              defaultValue={theHouse.description ? theHouse.description : null}
+              name="description"
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
           </div>
-          <div className={styles.input_side_by_side}>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>Bedrooms*</div>
-              <input
-                className={styles.form_input}
-                type="number"
-                placeholder="Enter amount"
-                min={0}
-                required
-                defaultValue={
-                  theHouse.rooms["bedrooms"] ? theHouse.rooms["bedrooms"] : null
-                }
-                name="bedrooms"
-                onChange={(e) => {
-                  setBedrooms(e.target.value);
-                }}
-              />
-            </div>
-            <div className={styles.element}>
-              <div className={styles.input_headers}>Bathrooms*</div>
-              <input
-                className={styles.form_input}
-                type="number"
-                placeholder="Enter amount"
-                min={0}
-                required
-                defaultValue={
-                  theHouse.rooms["bathrooms"]
-                    ? theHouse.rooms["bathrooms"]
-                    : null
-                }
-                name="bathrooms"
-                onChange={(e) => {
-                  setBathrooms(e.target.value);
-                }}
-              />
-            </div>
+          <div className={styles.button_container}>
+            <button type="submit" className={styles.submit_button}>
+              SAVE
+            </button>
           </div>
-          <div className={styles.input_headers}>Construction Date*</div>
-          <input
-            type="text"
-            className={styles.form_input}
-            onFocus={(e) => {
-              e.currentTarget.type = "date";
-              e.currentTarget.focus();
-            }}
-            required
-            placeholder="e.g. 1990"
-            name="constructionYear"
-            defaultValue={
-              theHouse.constructionYear ? theHouse.constructionYear : null
-            }
-            onChange={(e) => {
-              setConstructionYear(e.target.value);
-            }}
-          />
-          <div className={styles.input_headers}>Description*</div>
-          <textarea
-            className={styles.form_input}
-            rows="3"
-            placeholder="Enter Description"
-            minLength="5"
-            maxLength="80"
-            required
-            defaultValue={theHouse.description ? theHouse.description : null}
-            name="description"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
-        </div>
-        <div className={styles.button_container}>
-          <button type="submit" className={styles.submit_button}>
-            SAVE
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

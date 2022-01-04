@@ -12,6 +12,10 @@
     justify-content: space-between;
 }
 
+.go_back_container {
+    display: none;
+}
+
 .edit_container {
     display: flex;
     width: 20%;
@@ -120,14 +124,149 @@
     font-weight: 800;
     color: rgb(0, 0, 0);
     text-align: left;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
-@media screen and (min-width: 1025px) {
-    .container {
-        margin: 5px 120px;
-        display: flex;
 
+.recommend_cards {
+    margin: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+    align-items: center;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.recommend_card_img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    width: 140px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.recommend_container {
+    width: 98%;
+    padding: 10px;
+}
+
+.recommend_card_body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    width: 100%;
+    padding-left: 15px;
+    min-height: 120px;
+    min-width: 180px;
+}
+
+.recommend_edit_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recommend_house_name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.recommend_house_price {
+    font-family: 'open sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: rgb(57, 57, 58);
+}
+
+.recommend_house_location {
+    font-family: 'open sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: rgb(74, 75, 76);
+}
+
+.recommend_icon_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.recommend_small_info {
+    padding-right: 5px;
+}
+
+.recommend_icon {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 10px 0;
+    padding-right: 15px;
+    font-family: 'open sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: rgb(74, 75, 76);
+}
+
+.recommend_icon_container {
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+
+@media screen and (min-width: 1025px) {
+    .go_back_container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 25%;
+    }
+
+    .recommend_section {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    .recommend_container {
+        width: 100%;
+    }
+
+    .recommend_header_container {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .back_btn {
+        position: relative;
+        top: 25px;
+        left: 4%;
+        padding-right: 15px;
+        cursor: pointer;
+    }
+
+    .overview_text {
+        display: flex;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-left: 25px;
+    }
+
+    .container {
+        margin: 15px 100px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     .mobile_nav_container {
@@ -135,12 +274,13 @@
     }
 
     .house_img {
-        width: 500px;
+        width: 80%;
     }
 
     .img_container {
         display: flex;
         justify-content: flex-start;
+        margin-top: 15px;
     }
 
     .top_icons {
@@ -150,6 +290,10 @@
     .header_and_icons {
         display: flex;
         justify-content: space-between;
+    }
+
+    .card_width{
+        width: 100%;
     }
 
     .edit_and_delete {
@@ -170,13 +314,13 @@
 
 
     .card_container {
-        justify-content: center;
+        justify-content: flex-start;
         position: relative;
         bottom: 0px;
     }
 
     .card {
-        width: 100%;
+        width: 80%;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         padding: 10px;
@@ -197,6 +341,96 @@
     .recommend_header {
         font-size: 18px;
         text-align: left;
-        margin-left: 5px;
     }
+
+    .recommend_cards {
+        margin: 5px;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        /* font-family: 'Montserrat', sans-serif; */
+        font-family: 'Open Sans', sans-serif;
+        align-items: center;
+        padding: 10px;
+        font-size: 12px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .recommend_card_img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        width: 140px;
+        height: 140px;
+        cursor: pointer;
+    }
+
+    .recommend_card_body {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+        width: 100%;
+        padding-left: 15px;
+        min-height: 120px;
+        min-width: 180px;
+    }
+
+    .recommend_edit_container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recommend_house_name {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .recommend_house_price {
+        font-family: 'open sans', sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        color: rgb(57, 57, 58);
+    }
+
+    .recommend_house_location {
+        font-family: 'open sans', sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        color: rgb(74, 75, 76);
+    }
+
+    .recommend_icon_container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recommend_small_info {
+        padding-right: 5px;
+    }
+
+    .recommend_icon {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 10px 0;
+        padding-right: 15px;
+        font-family: 'open sans', sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        color: rgb(74, 75, 76);
+    }
+
+    .recommend_icon_container {
+        align-items: flex-end;
+        justify-content: flex-start;
+    }
+
+
+
 }

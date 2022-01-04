@@ -18,7 +18,10 @@ function DesktopNav() {
 
           <div
             className={
-              router.pathname == "/"
+              router.pathname == "/" ||
+              router.pathname == "/housePage" ||
+              router.pathname == "/editHome" ||
+              router.pathname == "/newListing"
                 ? style.nav_element_active
                 : style.nav_element_pasive
             }

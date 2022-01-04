@@ -28,10 +28,8 @@ function Houses({ data }) {
   };
 
   console.log(data);
-
-  /* Copy original data */
-  var dataArr = [...data];
-  const [sortedArr, setSortedArr] = useState(dataArr);
+ 
+  const [sortedArr, setSortedArr] = useState(data);
 
   /* /* Filtering according to Search Input */
   const filterBySearch = sortedArr.filter((value) => {

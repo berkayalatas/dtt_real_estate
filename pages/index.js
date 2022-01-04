@@ -1,9 +1,12 @@
+import React, {useState, useEffect } from "react";
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Houses from '../components/Houses'
 import Image from 'next/image'
 
+
 export default function Home({data}) {
+ 
   return (
     <div className={styles.container}>
       <Head>
@@ -17,9 +20,9 @@ export default function Home({data}) {
 
       <main>
   
-        <Houses data = {data }/> 
+        <Houses data = {data}/> 
     
-        {console.log(data)}
+        {/* {console.log(data)} */}
 
  
        

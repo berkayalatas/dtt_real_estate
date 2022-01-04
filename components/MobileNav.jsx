@@ -31,7 +31,16 @@ function MobileNav() {
             router.push("/");
           }}
         >
-          <Image src={router.pathname == "/" ? nav_home_active : nav_home} />
+          <Image
+            src={
+              router.pathname == "/" ||
+              router.pathname == "/housePage" ||
+              router.pathname == "/editHome" ||
+              router.pathname == "/newListing"
+                ? nav_home_active
+                : nav_home
+            }
+          />
         </div>
         <div
           className={styles.navbar_element}

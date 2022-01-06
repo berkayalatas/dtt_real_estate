@@ -5,22 +5,22 @@ import Image from "next/image";
 import delete_img from "../public/images/ic_clear_white.png";
 import axios from "axios";
 import back from "../public/images/ic_back_grey.png";
-import DesktopNav from '../components/DesktopNav';
+import DesktopNav from "../components/DesktopNav";
 
 function newListing() {
   const router = useRouter();
 
   const [streetName, setStreetName] = useState("");
-  const [houseNumber, setHouseNumber] = useState(null);
+  const [houseNumber, setHouseNumber] = useState("");
   const [numberAddition, setNumberAddition] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
   const [img, setImg] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [size, setSize] = useState(null);
+  const [price, setPrice] = useState("");
+  const [size, setSize] = useState("");
   const [hasGarage, setHasGarage] = useState(false);
-  const [bedrooms, setBedrooms] = useState(null);
-  const [bathrooms, setBathrooms] = useState(null);
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
   const [constructionYear, setConstructionYear] = useState("");
   const [description, setDescription] = useState("");
 
@@ -37,62 +37,50 @@ function newListing() {
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "wrGyPvn6VagYhAqEeFOpuZ1cKdtWUm24");
+    myHeaders.append("Content-Type", "application/json");
     // myHeaders.append("Content-Type", "application/json");
 
-    console.log(streetName, price, city, hasGarage);
+    // console.log(streetName, price, city, hasGarage);
 
-    var formdata = new FormData();
-    formdata.append("streetName", streetName);
-    formdata.append("price", price);
-    formdata.append("bedrooms", bedrooms);
-    formdata.append("bathrooms", bathrooms);
-    formdata.append("size", size);
-    formdata.append("houseNumber", houseNumber);
-    formdata.append("numberAddition", numberAddition);
-    formdata.append("zip", zip);
-    formdata.append("city", city);
-    formdata.append("constructionYear", constructionYear);
-    formdata.append("hasGarage", hasGarage);
-    formdata.append("description", description);
+    // var formdata = new FormData(e.target);
 
-    console.log(formdata);
+    // for (var [key, value] of formdata.entries()) {
+    //   console.log(key, value);
+    // }
 
-    const newListing = [
-      {
-        price: price,
-        rooms: {
-          bedrooms: bedrooms,
-          bathrooms: bedrooms,
-        },
-        size: 500,
-        description: description,
-        location: {
-          street: streetName,
-          city: city,
-          zip: zip,
-        },
-        constructionYear: constructionYear,
-        hasGarage: hasGarage,
-      },
-    ];
+    const houseData = {
+      streetName,
+      price,
+      bedrooms,
+      bathrooms,
+      size,
+      houseNumber,
+      numberAddition,
+      zip,
+      city,
+      constructionYear,
+      hasGarage,
+      description,
+    };
 
-    let config = {
+
+    var requestOptions = {
       method: "POST",
-      url: "https://api.intern.d-tt.nl/api/houses",
       headers: myHeaders,
-      body: newListing,
+      body: JSON.stringify(houseData),
       redirect: "follow",
     };
 
-    try {
-      const response = await axios(config);
-      console.log(response);
-      if (response.status == 200) {
-        console.log("success");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        router.push("/");
+      })
+      .catch((error) => console.log("error", error));
+
+ 
+       
   }
 
   return (
@@ -126,6 +114,7 @@ function newListing() {
                 placeholder="Enter the street name"
                 className={styles.form_input}
                 required
+                value={streetName}
                 name="streetName"
                 minLength="3"
                 maxLength="25"
@@ -141,6 +130,7 @@ function newListing() {
                   <input
                     className={styles.form_input}
                     type="number"
+                    value={houseNumber}
                     placeholder="Enter house number"
                     min={1}
                     required
@@ -160,6 +150,7 @@ function newListing() {
                   <input
                     className={styles.form_input}
                     type="text"
+                    value={numberAddition}
                     placeholder="e.g.A"
                     minLength="1"
                     maxLength="10"
@@ -179,6 +170,7 @@ function newListing() {
                 type="text"
                 required
                 name="zip"
+                value={zip}
                 onChange={(e) => {
                   setZip(e.target.value);
                 }}
@@ -193,6 +185,7 @@ function newListing() {
                 minLength="2"
                 maxLength="20"
                 required
+                value={city}
                 name="city"
                 onChange={(e) => {
                   setCity(e.target.value);
@@ -241,6 +234,7 @@ function newListing() {
                 required
                 min={3}
                 name="price"
+                value={price}
                 onChange={(e) => {
                   setPrice(e.target.value);
                 }}
@@ -254,6 +248,7 @@ function newListing() {
                     className={styles.form_input}
                     type="number"
                     placeholder="e.g. 60m2"
+                    value={size}
                     min={1}
                     required
                     name="size"
@@ -270,6 +265,7 @@ function newListing() {
                     className={styles.form_input}
                     style={{ backgroundColor: "#fff" }}
                     required
+                    value={hasGarage}
                     name="hasGarage"
                     onChange={handleGarageChange}
                     onClick={(e) => {
@@ -295,6 +291,7 @@ function newListing() {
                     className={styles.form_input}
                     type="number"
                     placeholder="Enter amount"
+                    value={bedrooms}
                     min={0}
                     required
                     name="bedrooms"
@@ -311,6 +308,7 @@ function newListing() {
                     className={styles.form_input}
                     type="number"
                     placeholder="Enter amount"
+                    value={bathrooms}
                     min={0}
                     required
                     name="bathrooms"
@@ -336,6 +334,7 @@ function newListing() {
                 required
                 placeholder="e.g. 1990"
                 name="constructionYear"
+                value={constructionYear}
                 onChange={(e) => {
                   setConstructionYear(e.target.value);
                 }}
@@ -350,6 +349,7 @@ function newListing() {
                 minLength="5"
                 maxLength="80"
                 required
+                value={description}
                 name="description"
                 onChange={(e) => {
                   setDescription(e.target.value);

@@ -267,10 +267,15 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        overflow: hidden;
     }
 
     .mobile_nav_container {
         display: none
+    }
+
+    .content_section{
+        width: 100%;
     }
 
     .house_img {
@@ -292,7 +297,7 @@
         justify-content: space-between;
     }
 
-    .card_width{
+    .card_width {
         width: 100%;
     }
 
@@ -314,6 +319,7 @@
 
 
     .card_container {
+        min-width: 500px;
         justify-content: flex-start;
         position: relative;
         bottom: 0px;
@@ -348,8 +354,6 @@
         border-radius: 10px;
         overflow: hidden;
         display: flex;
-        background-color: rgb(255, 255, 255);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         /* font-family: 'Montserrat', sans-serif; */
         font-family: 'Open Sans', sans-serif;
         align-items: center;
@@ -373,10 +377,11 @@
         flex-direction: column;
         font-family: 'Open Sans', sans-serif;
         font-weight: 600;
-        width: 100%;
         padding-left: 15px;
         min-height: 120px;
         min-width: 180px;
+        max-height: 140px;
+        max-width: 190px;
     }
 
     .recommend_edit_container {

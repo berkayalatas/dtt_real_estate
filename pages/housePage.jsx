@@ -18,6 +18,7 @@ import edit_red from "../public/images/ic_edit.png";
 import delete_gray from "../public/images/ic_delete.png";
 import back from "../public/images/ic_back_grey.png";
 import DesktopNav from "../components/DesktopNav";
+import notFound from "../public/images/img_empty_houses.png";
 
 function housePage({ data }) {
   const router = useRouter();
@@ -32,6 +33,8 @@ function housePage({ data }) {
     }
   });
 
+  const [isOpen, setIsOpen] = useState(false);
+
   function handleEdit() {
     router.push({
       pathname: "/editHome",
@@ -40,12 +43,12 @@ function housePage({ data }) {
       },
     });
   }
+
   function handleDelete() {
     setIsOpen(true);
   }
 
   console.log(data);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
@@ -66,7 +69,11 @@ function housePage({ data }) {
       <div className={styles.container}>
         <div className={styles.content_section}>
           <div className={styles.img_container}>
-            <img className={styles.house_img} src={theHouse.image} />
+            {theHouse.image ? (
+              <img className={styles.house_img} src={theHouse.image} />
+            ) : (
+              <Image src={notFound} />
+            )}
           </div>
 
           <div className={styles.top_icons}>
@@ -269,7 +276,9 @@ function housePage({ data }) {
             <MobileNav />
           </div>
 
-          {isOpen && <DeleteModal setIsOpen={setIsOpen} />}
+          {isOpen && (
+            <DeleteModal setIsOpen={setIsOpen} houseID={theHouse.id} />
+          )}
         </div>
       </div>
       <div className={styles.mobile_nav_container}>

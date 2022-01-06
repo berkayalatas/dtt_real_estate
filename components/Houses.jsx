@@ -28,7 +28,7 @@ function Houses({ data }) {
   };
 
   console.log(data);
- 
+
   const [sortedArr, setSortedArr] = useState(data);
 
   /* /* Filtering according to Search Input */
@@ -72,6 +72,12 @@ function Houses({ data }) {
     setActiveSizeBtn(true);
     setActivePriceBtn(false);
     setSortedArr(sortBySize);
+  }
+
+  function handleDelete() {
+      console.log(data.id)
+      //setIsOpen(true);
+ 
   }
 
   return (
@@ -134,7 +140,7 @@ function Houses({ data }) {
                   </div>
                 ) : (
                   <div className={styles.search_icon}>
-                    <Image src={search} alt="search"/>
+                    <Image src={search} alt="search" />
                   </div>
                 )}
               </div>
@@ -186,7 +192,16 @@ function Houses({ data }) {
                       });
                     }}
                   >
-                    <img src={house.image} alt="home" />
+                    {house.image ? (
+                      <img src={house.image} alt="home" />
+                    ) : (
+                      <Image
+                        src={notfound}
+                        width={220}
+                        height={120}
+                        alt={notfound}
+                      />
+                    )}
                   </div>
                   <div className={styles.card_body}>
                     <div>
@@ -210,7 +225,7 @@ function Houses({ data }) {
                           </div>
                           <div
                             className={styles.delete}
-                            onClick={() => {
+                            onClick={()=>{
                               setIsOpen(true);
                             }}
                           >
@@ -246,8 +261,11 @@ function Houses({ data }) {
                     </div>
                   </div>
                 </div>
+                {isOpen && <DeleteModal houseID={house.id} setIsOpen={setIsOpen} />}
               </div>
+              
             ))
+            
           ) : (
             <div className={styles.notfound}>
               <div className={styles.notfound_img_container}>
@@ -263,7 +281,7 @@ function Houses({ data }) {
           )}
         </div>
       </div>
-      {isOpen && <DeleteModal setIsOpen={setIsOpen} />}
+
       <div className={styles.mobile_nav}>
         <Mobile_Nav />
       </div>

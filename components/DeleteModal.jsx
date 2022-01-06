@@ -9,6 +9,7 @@ function DeleteModal({ setIsOpen, houseID }) {
     setIsOpen(false);
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "wrGyPvn6VagYhAqEeFOpuZ1cKdtWUm24");
+ 
 
     var requestOptions = {
       method: "DELETE",
@@ -23,7 +24,11 @@ function DeleteModal({ setIsOpen, houseID }) {
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
-        router.push("/");
+        if (router.pathname == "/") {
+          window.location.reload();
+        } else {
+          router.push("/");
+        }
       })
       .catch((error) => console.log("error", error));
   }

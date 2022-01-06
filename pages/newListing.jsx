@@ -38,15 +38,7 @@ function newListing() {
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "wrGyPvn6VagYhAqEeFOpuZ1cKdtWUm24");
     myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("Content-Type", "application/json");
-
-    // console.log(streetName, price, city, hasGarage);
-
-    // var formdata = new FormData(e.target);
-
-    // for (var [key, value] of formdata.entries()) {
-    //   console.log(key, value);
-    // }
+ 
 
     const houseData = {
       streetName,
@@ -79,8 +71,6 @@ function newListing() {
       })
       .catch((error) => console.log("error", error));
 
- 
-       
   }
 
   return (
